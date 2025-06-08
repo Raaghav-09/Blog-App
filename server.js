@@ -1,0 +1,24 @@
+const express = require("express") ; 
+const app = express() ; 
+
+require('dotenv').config() ; 
+const port = process.env.PORT || 3000 ; 
+
+// middleware 
+app.use(express.json()) ;
+
+const blog = require('./Routes/blog.js') ; 
+// mounting 
+app.use('/api/v1',blog) ; 
+
+const dbConnect = require('./config/database.js') ; 
+dbConnect() ; 
+
+app.listen(port , ()=>{
+  console.log(`App Started at Port ${port}`) ; 
+}) ; 
+
+app.get('/',(req,res)=>{
+  res.send(`App started `) ; 
+})
+
